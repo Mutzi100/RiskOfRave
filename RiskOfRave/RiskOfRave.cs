@@ -10,11 +10,14 @@ using static R2API.SoundAPI;
 using GameOverController = On.RoR2.GameOverController;
 using HUD = On.RoR2.UI.HUD;
 using Random = UnityEngine.Random;
+using RiskOfOptions;
+using RiskOfOptions.OptionConfigs;
+using RiskOfOptions.Options;
 
 
 /* TODO:
  * [X]VOLUME
- * [ ]Add volume slider in-game using 'Risk Of Options'
+ * [X]Add volume slider in-game using 'Risk Of Options'
  * [ ]Add More Songs
  * [ ]Add slight screen bounce zoom on beat
  * [ ]Add Rave Lasers to Teleporter
@@ -24,6 +27,7 @@ using Random = UnityEngine.Random;
 
 namespace RiskOfRave {
     [BepInPlugin(ModGuid, ModName, ModVersion)]
+    [BepInDependency("com.rune580.riskofoptions")]
     public class RiskOfRave : BaseUnityPlugin {
         private const string ModGuid = "com.RuneFoxMods.RiskOfRave";
         private const string ModName = "RiskOfRave";
@@ -43,12 +47,23 @@ namespace RiskOfRave {
         private Image _raveTintImg;
         private RectTransform _raveTintRect;
 
-        private static ConfigEntry<int> Volume { get; set; }
+        private static ConfigEntry<float> Volume { get; set; }
 
         public void Awake() {
             RoR2Application.isModded = true;
 
-            Volume = Config.Bind("Config", "Volume", 100, "How loud the music will be on a scale from 0-100");
+            AcceptableValueRange<float> volumeRange = new(0f, 100f);
+
+            Volume = Config.Bind("Config", "Volume", volumeRange.MaxValue,
+                new ConfigDescription("How loud the music will be on a scale from 0-100", volumeRange)
+            );
+
+            ModSettingsManager.AddOption(new SliderOption(Volume, new SliderConfig {
+                min = volumeRange.MinValue,
+                max = volumeRange.MaxValue,
+                restartRequired = false,
+                FormatString = "{0:F0}%"
+            }));
 
             //load the rave music into sound banks
             using var bankStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("RiskOfRave.Rave.bnk");
