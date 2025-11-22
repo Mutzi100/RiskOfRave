@@ -4,8 +4,12 @@ Event	ID	Name			Wwise Object Path	Notes
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	532574439	RaveVolume			\Default Work Unit\RaveVolume	
-	1088585942	InNOut			\Default Work Unit\InNOut	In is 0, Out is 1
+	1088585942	InNOut			\Default Work Unit\InNOut	
+
+Effect plug-ins	ID	Name	Type				Notes
+	3148785419	Muffle_EQ	Wwise Parametric EQ			
+	3411845636	Low_Pass_EQ	Wwise Parametric EQ			
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	124772758	Caramelldansen_Speedcake_Remix_Extended	C:\Users\kamba\Documents\WwiseProjects\RiskOfRave\.cache\Windows\SFX\Caramelldansen_Speedcake_Remix_Extended_78160227.wem		\Actor-Mixer Hierarchy\Default Work Unit\Rave\Caramelldansen_Speedcake_Remix_Extended		4981450
+	432406558	Caramelldansen_Speedcake_Remix_Extended	C:\Users\Mutzi\Documents\WwiseProjects\RiskOfRave\.cache\Windows\SFX\124772758_239921B3.wem		\Actor-Mixer Hierarchy\Default Work Unit\Rave_Mixer\Caramelldansen_Speedcake_Remix_Extended		16643658
 
